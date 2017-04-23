@@ -215,6 +215,24 @@
     return YES;
 }
 
+#pragma mark - UINavigationControllerDelegate
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    NSString *className = NSStringFromClass([viewController class]);
+    if ([className rangeOfString:@"PUUIImageViewController"].location != NSNotFound) {
+        if ([_delegate respondsToSelector:@selector(overlayImage)]) {
+            CGSize screen = [[UIScreen mainScreen] bounds].size;
+            CGFloat y = (screen.height - screen.width) / 2.0;
+            
+            UIImageView *overlayImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, y, screen.width, screen.width)];
+            overlayImageView.alpha = 0.5f;
+            overlayImageView.image = [_delegate overlayImage];
+            
+            [viewController.view addSubview:overlayImageView];
+        }
+    }
+}
+
 #pragma mark -
 #pragma mark - UIImagePickerControllerDelegate
 
