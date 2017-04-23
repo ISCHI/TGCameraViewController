@@ -85,5 +85,6 @@
 - (void)cameraDidSavePhotoWithError:(NSError *)error;
 - (void)cameraDidSavePhotoAtPath:(NSURL *)assetURL;
 - (void)cameraWillTakePhoto;
+- (UIImage *)overlayImage;
 
 @end

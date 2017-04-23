@@ -31,6 +31,7 @@
 
 @interface TGCameraViewController () <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UIImageView *overlayImageView;
 @property (strong, nonatomic) IBOutlet UIView *captureView;
 @property (strong, nonatomic) IBOutlet UIImageView *topLeftView;
 @property (strong, nonatomic) IBOutlet UIImageView *topRightView;
@@ -129,6 +130,12 @@
     _topRightView.transform = CGAffineTransformMakeRotation(M_PI_2);
     _bottomLeftView.transform = CGAffineTransformMakeRotation(-M_PI_2);
     _bottomRightView.transform = CGAffineTransformMakeRotation(M_PI_2*2);
+    
+    if ([_delegate respondsToSelector:@selector(overlayImage)]) {
+        UIImage *overlayImage = [_delegate overlayImage];
+        _overlayImageView.image = overlayImage;
+        _overlayImageView.alpha = 0.0f;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -179,6 +186,8 @@
         _shotButton.enabled =
         _albumButton.enabled =
         _flashButton.enabled = YES;
+        
+        _overlayImageView.alpha = 0.5f;
     }];
     
     if (_wasLoaded == NO) {

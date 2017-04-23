@@ -39,6 +39,7 @@ static NSString* const kTGCacheVignetteKey = @"TGCacheVignetteKey";
 
 @interface TGPhotoViewController ()
 
+@property (weak, nonatomic) IBOutlet UIImageView *overlayImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *photoView;
 @property (strong, nonatomic) IBOutlet UIView *bottomView;
 @property (strong, nonatomic) IBOutlet TGCameraFilterView *filterView;
@@ -107,6 +108,10 @@ static NSString* const kTGCacheVignetteKey = @"TGCacheVignetteKey";
     }
     
     [self addDetailViewToButton:_defaultFilterButton];
+    
+    if ( [_delegate respondsToSelector:@selector(overlayImage)]) {
+        self.overlayImageView.image = [_delegate overlayImage];
+    }
 }
 
 - (void)didReceiveMemoryWarning
