@@ -298,7 +298,11 @@
     
     dispatch_group_enter(group);
     [_camera takePhotoWithCaptureView:_captureView videoOrientation:videoOrientation cropSize:cropSize completion:^(UIImage *_photo) {
-        photo = _photo;
+        if ([_camera isFrontCameraInUse]) {
+            photo = [UIImage imageWithCGImage:[_photo CGImage] scale:[photo scale] orientation: UIImageOrientationUpMirrored];
+        } else {
+            photo = _photo;
+        }
         dispatch_group_leave(group);
     }];
     

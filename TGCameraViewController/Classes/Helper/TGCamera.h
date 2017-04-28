@@ -52,6 +52,8 @@
 - (void)startRunning;
 - (void)stopRunning;
 
+- (BOOL)isFrontCameraInUse;
+
 - (AVCaptureVideoPreviewLayer *)previewLayer;
 - (AVCaptureStillImageOutput *)stillImageOutput;
 

@@ -107,6 +107,11 @@ NSMutableDictionary *optionDictionary;
     [_session stopRunning];
 }
 
+- (BOOL)isFrontCameraInUse {
+    AVCaptureDeviceInput *deviceInput = [_session.inputs lastObject];
+    return ([deviceInput.device position] == AVCaptureDevicePositionFront);
+}
+
 - (void)insertSublayerWithCaptureView:(UIView *)captureView atRootView:(UIView *)rootView
 {
     _previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:_session];
